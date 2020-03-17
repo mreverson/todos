@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Platform, FlatList, Keyboard, Switch} from 'react-native';
+import {View, StyleSheet, Platform, FlatList, Keyboard} from 'react-native';
 import Header from './header';
 import Footer from './footer';
+import Row from './row';
 
 class App extends Component {
   constructor(props) {
@@ -10,7 +11,6 @@ class App extends Component {
       allComplete: false,
       value: '',
       todos: [],
-      isLoading: false,
     };
     this.handleToggleComplete = this.handleToggleComplete.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);
@@ -39,7 +39,7 @@ class App extends Component {
       };
     });
     this.setState({
-      newTodos: newTodos,
+      todos: newTodos,
     });
   }
   handleAddItem() {
@@ -59,24 +59,18 @@ class App extends Component {
       value: '',
     });
   }
+
   renderRow(todos) {
     return (
-      <View>
-        <View style={styles.rowContainer}>
-          <Switch
-            value={todos.complete}
-            onValueChange={this.state.onComplete}
-          />
-          <View style={styles.textWrap}>
-            <Text style={[styles.text, todos.complete && styles.complete]}>
-              {todos.text}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.separator} />
-      </View>
+      <Row
+        key={todos.key}
+        text={todos.text}
+        complete={todos.complete}
+        onComplete={complete => this.handleToggleComplete(todos.key, complete)}
+      />
     );
   }
+
   render() {
     return (
       <View style={styles.container}>
@@ -114,27 +108,6 @@ const styles = StyleSheet.create({
   },
   list: {
     backgroundColor: '#FFF',
-  },
-  separator: {
-    borderWidth: 1,
-    borderColor: '#f5f5f5',
-  },
-  rowContainer: {
-    padding: 10,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-  },
-  text: {
-    fontSize: 24,
-    color: '#4d4d4d',
-  },
-  textWrap: {
-    flex: 1,
-    marginHorizontal: 10,
-  },
-  complete: {
-    textDecorationLine: 'line-through',
   },
 });
 
