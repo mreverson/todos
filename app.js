@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  Platform,
-  FlatList,
-} from 'react-native';
+import {View, StyleSheet, Platform, FlatList} from 'react-native';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import CalcItem from './components/CalcItem';
@@ -42,16 +37,18 @@ export default function App() {
         onAddCalc={addCalcHandler}
         onCancel={cancelCalcAddHandler}
       />
-      <FlatList
-        data={calculations}
-        renderItem={itemData => (
-          <CalcItem
-            id={itemData.item.key}
-            onDelete={removeCalcHandler}
-            title={itemData.item.value}
-          />
-        )}
-      />
+      <View style={styles.listWrapper}>
+        <FlatList
+          data={calculations}
+          renderItem={itemData => (
+            <CalcItem
+              id={itemData.item.key}
+              onDelete={removeCalcHandler}
+              title={itemData.item.value}
+            />
+          )}
+        />
+      </View>
       <Footer modalState={modalState} />
     </View>
   );
@@ -68,5 +65,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  
+  listWrapper: {
+    flex: 1,
+  },
 });

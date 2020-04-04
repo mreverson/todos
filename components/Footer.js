@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
 const Footer = props => {
@@ -14,11 +14,12 @@ const Footer = props => {
 
 const styles = StyleSheet.create({
   footerContainer: {
+    height: '10%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    flex: 1,
-    marginRight: 20,
+    flex: 0.3,
+    paddingRight: 15,
   },
   copy: {
     color: '#92BF5A',
