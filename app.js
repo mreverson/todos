@@ -1,69 +1,47 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Platform, FlatList} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
+import NutrientCalculator from './components/views/NutrientCalculator';
+import Login from './components/views/Login';
+import Menu from './components/Menu';
 import Header from './components/Header';
-import Footer from './components/Footer';
-import CalcItem from './components/CalcItem';
-import CalcInput from './components/CalcInput';
 
 export default function App() {
-  const [calculations, setCalculations] = useState([]);
-  const [isAddMode, setIsAddMode] = useState(false);
+  const [isMenuMode, setMenuMode] = useState(false);
+  var login = <Login />;
+  var home = <NutrientCalculator />;
 
-  const modalState = () => setIsAddMode(true);
+  const menuState = () => setMenuMode(true);
 
-  const addCalcHandler = calcTitle => {
-    setCalculations(currentCalcs => [
-      ...currentCalcs,
-      {key: Date.now().toString(), value: calcTitle},
-    ]);
-    setIsAddMode(false);
-  };
-
-  const removeCalcHandler = calcId => {
-    setCalculations(currentCalcs => {
-      return currentCalcs.filter(calc => calc.key !== calcId);
-    });
-  };
-
-  const cancelCalcAddHandler = () => {
-    setIsAddMode(false);
+  const menuCloseHandler = () => {
+    setMenuMode(false);
   };
 
   return (
     <View style={styles.container}>
-      <Header />
-      <CalcInput
-        visible={isAddMode}
-        onAddCalc={addCalcHandler}
-        onCancel={cancelCalcAddHandler}
-      />
-      <View style={styles.listWrapper}>
-        <FlatList
-          data={calculations}
-          renderItem={itemData => (
-            <CalcItem
-              id={itemData.item.key}
-              onDelete={removeCalcHandler}
-              title={itemData.item.value}
-            />
-          )}
-        />
+      <View style={styles.header}>
+        <Header menuState={menuState} />
+        <Menu visible={isMenuMode} menuClose={menuCloseHandler} />
       </View>
-      <Footer modalState={modalState} />
+      <View style={styles.content}>{home}</View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'stretch',
+    //justifyContent: 'space-around',
     flex: 1,
     backgroundColor: '#1B1B1B',
     ...Platform.select({
       ios: {paddingTop: 30},
     }),
   },
+  header: {
+    flex: 3,
+  },
   content: {
-    flex: 1,
+    flex: 10,
   },
   listWrapper: {
     flex: 1,

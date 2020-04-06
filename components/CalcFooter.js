@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
-const Footer = props => {
+const CalcFooter = props => {
   return (
     <View style={styles.footerContainer}>
       <Text style={styles.copy}>New Calculation</Text>
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Footer;
+export default CalcFooter;
