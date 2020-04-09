@@ -13,6 +13,7 @@ export default function App() {
   const [isMenuMode, setMenuMode] = useState(false);
   var login = <Login />;
   var home = <NutrientCalculator />;
+  var counter = <Counter />;
 
   const store = createStore(counterReducer);
   const menuState = () => setMenuMode(true);
@@ -28,9 +29,7 @@ export default function App() {
           <Header menuState={menuState} />
           <Menu visible={isMenuMode} menuClose={menuCloseHandler} />
         </View>
-        <View style={styles.content}>
-          <Counter />
-        </View>
+        <View style={styles.content}>{counter}</View>
       </View>
     </Provider>
   );
