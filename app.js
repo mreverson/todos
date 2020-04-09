@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Platform} from 'react-native';
+import React, {useState, Component} from 'react';
+import {View, StyleSheet, Platform, Button, Text} from 'react-native';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
 import NutrientCalculator from './components/views/NutrientCalculator';
 import Login from './components/views/Login';
 import Menu from './components/Menu';
 import Header from './components/Header';
+import Counter from './components/Counter';
+import counterReducer from './reducers/counterReducer';
 
 export default function App() {
   const [isMenuMode, setMenuMode] = useState(false);
   var login = <Login />;
   var home = <NutrientCalculator />;
 
+  const store = createStore(counterReducer);
   const menuState = () => setMenuMode(true);
 
   const menuCloseHandler = () => {
@@ -17,13 +22,17 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Header menuState={menuState} />
-        <Menu visible={isMenuMode} menuClose={menuCloseHandler} />
+    <Provider store={store}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Header menuState={menuState} />
+          <Menu visible={isMenuMode} menuClose={menuCloseHandler} />
+        </View>
+        <View style={styles.content}>
+          <Counter />
+        </View>
       </View>
-      <View style={styles.content}>{home}</View>
-    </View>
+    </Provider>
   );
 }
 
