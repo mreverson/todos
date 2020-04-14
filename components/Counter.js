@@ -7,7 +7,7 @@ import {increaseCount, decreaseCount} from '../actions/Counter';
 class Counter extends Component {
   static mapStateToProps = state => {
     return {
-      count: state.count,
+      count: state.counterReducer.count,
     };
   };
   static mapDispatchToProps = dispatch => {

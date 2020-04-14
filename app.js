@@ -1,21 +1,20 @@
-import React, {useState, Component} from 'react';
-import {View, StyleSheet, Platform, Button, Text} from 'react-native';
+import React, {useState} from 'react';
+import {View, StyleSheet, Platform} from 'react-native';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import configureStore from './store';
 import NutrientCalculator from './components/views/NutrientCalculator';
-import Login from './components/views/Login';
+import Axios from './components/Axios';
 import Menu from './components/Menu';
 import Header from './components/Header';
 import Counter from './components/Counter';
-import counterReducer from './reducers/counterReducer';
 
 export default function App() {
+  const store = configureStore();
   const [isMenuMode, setMenuMode] = useState(false);
-  var login = <Login />;
+  var axios = <Axios />;
   var home = <NutrientCalculator />;
   var counter = <Counter />;
 
-  const store = createStore(counterReducer);
   const menuState = () => setMenuMode(true);
 
   const menuCloseHandler = () => {
@@ -29,7 +28,7 @@ export default function App() {
           <Header menuState={menuState} />
           <Menu visible={isMenuMode} menuClose={menuCloseHandler} />
         </View>
-        <View style={styles.content}>{counter}</View>
+        <View style={styles.content}>{axios}</View>
       </View>
     </Provider>
   );
