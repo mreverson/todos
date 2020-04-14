@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {fetchBreeds} from '../actions/AxiosTest';
 
 class Axios extends Component {
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.props.fetchBreeds();
   }
 
