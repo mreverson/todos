@@ -5,20 +5,20 @@ import {bindActionCreators} from 'redux';
 import {fetchBreeds} from '../actions/AxiosTest';
 
 class Axios extends Component {
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchBreeds();
   }
 
   render() {
     const {breeds, isFetching} = this.props;
-    if (isFetching) {
+    console.log(isFetching)
+    if (!breeds) {
       return (
         <View style={styles.breeds}>
           <ActivityIndicator size={'large'} />
         </View>
       );
     } else {
-      console.log('2', this.props);
       return (
         <View style={styles.breeds}>
           <Text style={styles.text}>{this.props.breeds}</Text>
@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    breeds: state.breeds,
+    breeds: state.axiosReducer.breeds,
+    isFetching: state.axiosReducer.isFetching,
   };
 }
 

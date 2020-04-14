@@ -14,7 +14,6 @@ export default function axiosReducer(state = initialState, action) {
         isFetching: true,
       };
     case FETCH_SUCCESS:
-      console.log('4 ', action.data);
       return {
         ...state,
         isFetching: false,

@@ -8,7 +8,7 @@ export function fetchBreeds() {
       .get('https://dog.ceo/api/breeds/list/all')
       .then(function(response) {
         var breed = Object.entries(response.data.message);
-        console.log('1', breed);
+        //console.log('1', breed);
         return dispatch(getSuccess(breed));
       })
       .catch(err => dispatch(getFailure(err)));
@@ -22,7 +22,6 @@ function getBreeds() {
 }
 
 function getSuccess(data) {
-  console.log('3', data);
   return {
     type: FETCH_SUCCESS,
     data,
