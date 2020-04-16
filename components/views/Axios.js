@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Button, Text, ActivityIndicator} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+  FlatList,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchBreeds} from '../actions/AxiosTest';
+import Header from '../Header';
+import {fetchBreeds} from '../../actions/AxiosTest';
 
 class Axios extends Component {
   componentDidMount() {
@@ -11,45 +18,37 @@ class Axios extends Component {
 
   render() {
     const {breeds, isFetching} = this.props;
-    console.log(isFetching)
-    if (!breeds) {
+    if (isFetching) {
       return (
-        <View style={styles.breeds}>
-          <ActivityIndicator size={'large'} />
+        <View>
+          <View style={styles.breeds}>
+            <ActivityIndicator size={'large'} />
+          </View>
         </View>
       );
     } else {
       return (
-        <View style={styles.breeds}>
-          <Text style={styles.text}>{this.props.breeds}</Text>
+        <View>
+          <Header title={'AXIOS TEST'} />
+          <View style={styles.breeds}>
+            <FlatList
+              data={breeds}
+              keyExtractor={item => item.index}
+              renderItem={item => (
+                <Text style={styles.text}>{item.item[0]}</Text>
+              )}
+            />
+          </View>
         </View>
       );
     }
   }
 }
 const styles = StyleSheet.create({
-  titleContainer: {
-    marginTop: 15,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   breeds: {
-    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  contentWrapper: {
-    marginTop: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
-  title: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    color: '#fff',
-    fontSize: 30,
   },
   text: {
     paddingLeft: 20,

@@ -2,30 +2,15 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Button, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {increaseCount, decreaseCount} from '../actions/Counter';
+import Header from '../Header';
+import {increaseCount, decreaseCount} from '../../actions/Counter';
 
 class Counter extends Component {
-  static mapStateToProps = state => {
-    return {
-      count: state.counterReducer.count,
-    };
-  };
-  static mapDispatchToProps = dispatch => {
-    return bindActionCreators(
-      {
-        increaseCount,
-        decreaseCount,
-      },
-      dispatch,
-    );
-  };
   render() {
     const {increaseCount, decreaseCount} = this.props;
     return (
       <View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Simple Counter</Text>
-        </View>
+        <Header title={'Simple Counter'} />
         <View style={styles.contentWrapper}>
           <Button title="SUBTRACT" onPress={decreaseCount} />
           <Text style={styles.text}>{this.props.count}</Text>
@@ -60,8 +45,18 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 });
+function mapStateToProps(state) {
+  return {
+    count: state.counterReducer.count,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators({increaseCount, decreaseCount}, dispatch),
+  };
+}
 
 export default connect(
-  Counter.mapStateToProps,
-  Counter.mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(Counter);

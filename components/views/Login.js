@@ -3,7 +3,7 @@ import {View, StyleSheet, TextInput} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-class SignUp extends Component {
+class Login extends Component {
   componentDidMount() {}
 
   render() {
@@ -42,4 +42,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SignUp);
+)(Login);
