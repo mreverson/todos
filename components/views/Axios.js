@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   FlatList,
 } from 'react-native';
+import {globalStyles} from '../../styles/global';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Header from '../Header';
@@ -20,7 +21,7 @@ class Axios extends Component {
     const {breeds, isFetching} = this.props;
     if (isFetching) {
       return (
-        <View>
+        <View style={globalStyles.container}>
           <View style={styles.breeds}>
             <ActivityIndicator size={'large'} />
           </View>
@@ -28,8 +29,7 @@ class Axios extends Component {
       );
     } else {
       return (
-        <View>
-          <Header title={'AXIOS TEST'} />
+        <View style={globalStyles.container}>
           <View style={styles.breeds}>
             <FlatList
               data={breeds}

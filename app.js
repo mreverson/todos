@@ -1,38 +1,31 @@
-import React, {Component} from 'react';
-import {View, StyleSheet, Platform} from 'react-native';
+import 'react-native-gesture-handler';
+import React from 'react';
 import {Provider} from 'react-redux';
-import configureStore from './store';
-import Axios from './components/views/Axios';
-import Counter from './components/views/Counter';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
 
-const store = configureStore();
-class App extends Component {
-  componentDidMount() {
-    console.log(store.getState());
-  }
-  render() {
-    var axios = <Axios />;
-    var counter = <Counter />;
-    return (
-      <Provider store={store}>
-        <View style={styles.container}>
-          <View style={styles.content}>{axios}</View>
-        </View>
-      </Provider>
-    );
-  }
+import login from './components/views/Login';
+import signup from './components/views/SignUp';
+import axios from './components/views/Axios';
+import counter from './components/views/Counter';
+import configureStore from './store';
+
+const Drawer = createDrawerNavigator();
+
+export default function App() {
+  const store = configureStore();
+  console.log(store.getState())
+  return(
+    <Provider store={store}>
+      <NavigationContainer>
+        <Drawer.Navigator initialRouteName="Login">
+            <Drawer.Screen name="Login" component={login}/>
+            <Drawer.Screen name="SignUp" component={signup} />
+            <Drawer.Screen name="Axios" component={axios} />
+            <Drawer.Screen name="Counter" component={counter} />
+        </Drawer.Navigator>
+      </NavigationContainer>    
+    </Provider>
+  )
 }
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'stretch',
-    flex: 1,
-    backgroundColor: '#1B1B1B',
-    ...Platform.select({
-      ios: {paddingTop: 30},
-    }),
-  },
-  content: {
-    flex: 9,
-  },
-});
-export default App;
+

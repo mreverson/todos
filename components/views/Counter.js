@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Button, Text} from 'react-native';
+import {globalStyles} from '../../styles/global';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Header from '../Header';
 import {increaseCount, decreaseCount} from '../../actions/Counter';
 
 class Counter extends Component {
   render() {
     const {increaseCount, decreaseCount} = this.props;
     return (
-      <View>
-        <Header title={'Simple Counter'} />
+      <View style={globalStyles.container}>
         <View style={styles.contentWrapper}>
           <Button title="SUBTRACT" onPress={decreaseCount} />
           <Text style={styles.text}>{this.props.count}</Text>
